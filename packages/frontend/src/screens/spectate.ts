@@ -1,11 +1,10 @@
-// 观战: 列出当前全部对战房间, 选择进入实时观战。
-import { el, button, topBar } from '../ui';
-import { api } from '../net';
+// Spectate: list all current battle rooms and enter one to watch live.
+import { el, button } from '../ui/ui';
+import { api } from '../core/net';
 
 export function spectateScreen(root: HTMLElement): void {
   root.replaceChildren();
   root.append(
-    topBar(),
     el('div', { class: 'spectate-page' }, [el('p', { class: 'hint', text: '加载房间列表…' })])
   );
 
@@ -18,7 +17,7 @@ export function spectateScreen(root: HTMLElement): void {
       host.append(el('p', { class: 'hint', text: '当前没有进行中的对战' }));
       return;
     }
-    // 网格布局: 随窗口宽度自适应列数, 避免卡片只堆在左侧
+    // Grid layout: adapt the column count to window width, avoid cards stacking only on the left
     const list = el('div', { class: 'card-list' });
     for (const r of rooms) {
       const row = el('div', { class: 'card' }, [
